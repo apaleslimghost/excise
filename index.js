@@ -60,6 +60,6 @@ class Component extends HTMLElement {
 	}
 }
 
-exports.Component = Component;
-exports.component = Component.component.bind(Component);
-exports.define = Component.define.bind(Component);
+module.exports = Component;
+Component.component = Component.component.bind(Component);
+Component.define = Component.define.bind(Component);
