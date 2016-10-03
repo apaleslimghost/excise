@@ -1,6 +1,6 @@
-import {innerHTML} from 'diffhtml/lib';
+const {innerHTML} = require('diffhtml');
 
-export class Component extends HTMLElement {
+class Component extends HTMLElement {
 	static component(render, observedAttributes) {
 		return class extends this {
 			get render() {
@@ -46,4 +46,5 @@ export class Component extends HTMLElement {
 	}
 }
 
-export const component = Component.component.bind(Component);
+exports.Component = Component;
+exports.component = Component.component.bind(Component);

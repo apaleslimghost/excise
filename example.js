@@ -1,5 +1,5 @@
-import {component} from './';
-import {html} from 'diffhtml/lib';
+const {component} = require('./');
+const {html} = require('diffhtml');
 
 customElements.define('x-increment', component(
 	(props, el) => html`<div>

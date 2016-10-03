@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build-browser": "rollup -c rollup.config.browser.js",
-    "build-node": "rollup -c rollup.config.node.js",
-    "build-example": "rollup -c rollup.config.browser.js example.js -o dist/example.js",
-    "prepublish": "npm run build-node && npm run build-browser"
+    "build-browser": "browserify index.js --standalone excise -o dist/excise.js",
+    "build-example": "browserify example.js -o dist/example.js",
+    "prepublish": "npm run build-browser"
   },
   "keywords": [],
   "author": "Matt Brennan <matt@153.io> (http://blog.153.io/)",
@@ -16,10 +15,7 @@
     "global": "^4.3.0"
   },
   "devDependencies": {
-    "rollup": "^0.36.1",
-    "rollup-plugin-commonjs": "^5.0.4",
-    "rollup-plugin-inject": "^2.0.0",
-    "rollup-plugin-node-resolve": "^2.0.0"
+    "browserify": "^13.0.1"
   },
   "repository": {
     "type": "git",
