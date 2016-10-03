@@ -1,5 +1,6 @@
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import inject from 'rollup-plugin-inject';
 
 export default {
 	entry: 'index.js',
@@ -10,6 +11,12 @@ export default {
 		nodeResolve({
 			include: 'node_modules/**'
 		}),
-		commonjs()
-	]
+		commonjs(),
+		inject({
+			modules: {
+				global: 'global',
+			},
+		})
+	],
+	
 };

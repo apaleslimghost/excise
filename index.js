@@ -1,4 +1,4 @@
-import {update} from 'yo-yo';
+import {innerHTML} from 'diffhtml/lib';
 
 export class Component extends HTMLElement {
   constructor() {
@@ -40,7 +40,7 @@ export class Component extends HTMLElement {
   }
 
 	get _updateTree() {
-		return update;
+		return innerHTML;
 	}
 }
 
