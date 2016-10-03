@@ -1,6 +1,18 @@
 import {innerHTML} from 'diffhtml/lib';
 
 export class Component extends HTMLElement {
+	static component(render, observedAttributes) {
+		return class extends this {
+			get render() {
+				return render;
+			}
+
+			static get observedAttributes() {
+				return observedAttributes;
+			}
+		}
+	}
+
 	constructor() {
 		super();
 
@@ -34,14 +46,4 @@ export class Component extends HTMLElement {
 	}
 }
 
-export const componentFactory = (BaseComponent) => ((render, observedAttributes = []) => class FunctionalComponent extends BaseComponent {
-	get render() {
-		return render;
-	}
-
-	static get observedAttributes() {
-		return observedAttributes;
-	}
-});
-
-export const component = componentFactory(Component);
+export const component = Component.component.bind(Component);
