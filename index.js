@@ -3,50 +3,40 @@ import {innerHTML} from 'diffhtml/lib';
 export class Component extends HTMLElement {
 	constructor() {
 		super();
+
 		this.props = {};
-		for(const attr of this.constructor.observedAttributes) {
-			this._setProp(attr);
+		for(const {name, value} of this.attributes) {
+			this.props[name] = value;
 		}
+
 		this.attachShadow({mode: 'open'});
-	}
-
-	connectedCallback() {
-		this._render();
-	}
-
-	_setProp(attr, val = this.getAttribute(attr)) {
-		if(this.hasOwnProperty(attr)) {
-			this.props[attr] = this[attr];
-		} else if(this.hasAttribute(attr)) {
-			this.props[attr] = val;
-		}
-	}
-
-	attributeChangedCallback(name, old, val) {
-		this._setProp(name, val);
-		this._render();
-	}
-
-	_render() {
-		this._updateTree(this.shadowRoot, this.render());
-	}
-
-	render() {
-		throw new Error(`component ${this.constructor.is || this.constructor.name} does not implement render`);
 	}
 
 	static get observedAttributes() {
 		return [];
 	}
 
+	attributeChangedCallback(name, old, val) {
+		this.props[name] = val;
+		this.connectedCallback();
+	}
+
+	connectedCallback() {
+		this._updateTree(this.shadowRoot, this.render(this.props, this));
+	}
+
 	get _updateTree() {
 		return innerHTML;
+	}
+
+	render() {
+		throw new Error(`component ${this.constructor.is || this.constructor.name} does not implement render`);
 	}
 }
 
 export const componentFactory = (BaseComponent) => ((render, observedAttributes = []) => class FunctionalComponent extends BaseComponent {
-	render() {
-		return render(this.props, this);
+	get render() {
+		return render;
 	}
 
 	static get observedAttributes() {
