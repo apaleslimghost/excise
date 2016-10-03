@@ -1,43 +1,43 @@
 import {innerHTML} from 'diffhtml/lib';
 
 export class Component extends HTMLElement {
-  constructor() {
-    super();
-    this.props = {};
-    for(const attr of this.constructor.observedAttributes) {
-      this._setProp(attr);
-    }
-    this.attachShadow({mode: 'open'});
-  }
+	constructor() {
+		super();
+		this.props = {};
+		for(const attr of this.constructor.observedAttributes) {
+			this._setProp(attr);
+		}
+		this.attachShadow({mode: 'open'});
+	}
 
-  connectedCallback() {
-    this._render();
-  }
+	connectedCallback() {
+		this._render();
+	}
 
-  _setProp(attr, val = this.getAttribute(attr)) {
-    if(this.hasOwnProperty(attr)) {
-      this.props[attr] = this[attr];
-    } else if(this.hasAttribute(attr)) {
-      this.props[attr] = val;
-    }
-  }
+	_setProp(attr, val = this.getAttribute(attr)) {
+		if(this.hasOwnProperty(attr)) {
+			this.props[attr] = this[attr];
+		} else if(this.hasAttribute(attr)) {
+			this.props[attr] = val;
+		}
+	}
 
-  attributeChangedCallback(name, old, val) {
-    this._setProp(name, val);
-    this._render();
-  }
+	attributeChangedCallback(name, old, val) {
+		this._setProp(name, val);
+		this._render();
+	}
 
-  _render() {
-    this._updateTree(this.shadowRoot, this.render());
-  }
+	_render() {
+		this._updateTree(this.shadowRoot, this.render());
+	}
 
-  render() {
-    throw new Error(`component ${this.constructor.is || this.constructor.name} does not implement render`);
-  }
+	render() {
+		throw new Error(`component ${this.constructor.is || this.constructor.name} does not implement render`);
+	}
 
-  static get observedAttributes() {
-    return [];
-  }
+	static get observedAttributes() {
+		return [];
+	}
 
 	get _updateTree() {
 		return innerHTML;
