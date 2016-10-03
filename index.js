@@ -1,4 +1,5 @@
 const {innerHTML} = require('diffhtml');
+const paramCase = require('param-case');
 
 class Component extends HTMLElement {
 	static component(render, observedAttributes) {
@@ -11,6 +12,19 @@ class Component extends HTMLElement {
 				return observedAttributes;
 			}
 		}
+	}
+
+	static define(name, klass, ...rest) {
+		if(typeof name === 'function') {
+			klass = name;
+			name = klass.is || paramCase(klass.name);
+		}
+
+		if(!klass.prototype || !klass.prototype.render) {
+			klass = this.component(klass, ...rest);
+		}
+
+		customElements.define(name, klass);
 	}
 
 	constructor() {
@@ -48,3 +62,4 @@ class Component extends HTMLElement {
 
 exports.Component = Component;
 exports.component = Component.component.bind(Component);
+exports.define = Component.define.bind(Component);
