@@ -1,4 +1,4 @@
-const {innerHTML} = require('diffhtml');
+const {innerHTML, html} = require('diffhtml');
 const paramCase = require('param-case');
 
 class Component extends HTMLElement {
@@ -25,6 +25,10 @@ class Component extends HTMLElement {
 		}
 
 		customElements.define(name, klass);
+	}
+
+	static get html() {
+		return html;
 	}
 
 	constructor() {

@@ -1,5 +1,4 @@
-const {define} = require('./');
-const {html} = require('diffhtml');
+const {define, html} = require('./');
 
 define('x-increment',
 	(props, el) => html`<div>
