@@ -18,7 +18,7 @@ export class Component extends HTMLElement {
 
 		this.props = {};
 		for(const {name, value} of this.attributes) {
-			this.props[name] = value;
+			this.props[name] = !value && this.hasOwnProperty(name) ? this[name] : value;
 		}
 
 		this.attachShadow({mode: 'open'});

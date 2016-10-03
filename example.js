@@ -10,5 +10,5 @@ customElements.define('x-increment', component(
 ))
 
 customElements.define('x-button', component(
-	(p, {click}) => html`<button onclick=${click}><b><slot /></b></button>`
+	({click}) => html`<button onclick=${click}><b><slot /></b></button>`
 ));
