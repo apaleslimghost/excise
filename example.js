@@ -1,6 +1,7 @@
 const {define, html} = require('./');
+const StatefulComponent = require('./stateful');
 
-define('x-increment',
+StatefulComponent.define('x-increment',
 	(props, el) => html`<div>
 		<b>${props.count}</b>
 		<x-button click=${() => el.setAttribute('count', +props.count + 1)}>+</x-button>

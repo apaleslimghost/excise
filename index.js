@@ -2,14 +2,10 @@ const {innerHTML, html} = require('diffhtml');
 const paramCase = require('param-case');
 
 class Component extends HTMLElement {
-	static component(render, observedAttributes) {
+	static component(render) {
 		return class extends this {
 			get render() {
 				return render;
-			}
-
-			static get observedAttributes() {
-				return observedAttributes;
 			}
 		}
 	}
@@ -25,10 +21,7 @@ class Component extends HTMLElement {
 		}
 
 		customElements.define(name, klass);
-	}
-
-	static get html() {
-		return html;
+		return klass;
 	}
 
 	constructor() {
@@ -42,15 +35,6 @@ class Component extends HTMLElement {
 		this.attachShadow({mode: 'open'});
 	}
 
-	static get observedAttributes() {
-		return [];
-	}
-
-	attributeChangedCallback(name, old, val) {
-		this.props[name] = val;
-		this.connectedCallback();
-	}
-
 	connectedCallback() {
 		this._updateTree(this.shadowRoot, this.render(this.props, this));
 	}
@@ -58,12 +42,9 @@ class Component extends HTMLElement {
 	get _updateTree() {
 		return innerHTML;
 	}
-
-	render() {
-		throw new Error(`component ${this.constructor.is || this.constructor.name} does not implement render`);
-	}
 }
 
-module.exports = Component;
-Component.component = Component.component.bind(Component);
-Component.define = Component.define.bind(Component);
+exports.Component = Component;
+exports.component = Component.component.bind(Component);
+exports.define = Component.define.bind(Component);
+exports.html = html;
