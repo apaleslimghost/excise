@@ -1,4 +1,4 @@
-const {Component} = require('./');
+const Component = require('./component');
 
 module.exports = class StatefulComponent extends Component {
 	static component(render, observedAttributes) {
