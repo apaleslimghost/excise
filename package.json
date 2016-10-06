@@ -18,6 +18,10 @@
   "devDependencies": {
     "browserify": "^13.0.1"
   },
+  "files": [
+    "*.js",
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/quarterto/excise.git"
