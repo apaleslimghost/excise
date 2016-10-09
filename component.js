@@ -37,7 +37,7 @@ module.exports = class Component extends HTMLElement {
 			this.props[name] = val;
 		}
 
-		this.shadowRoot = this.attachShadow({mode: 'open'});
+		this.attachShadow({mode: 'open'});
 	}
 
 	_propValue(name, value) {
