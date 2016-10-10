@@ -12,7 +12,7 @@ npm install excise
 
 ### basic
 
-you'll need a browser that supports custom elements v1. chrome 55 will work.
+you'll need a browser that supports custom elements v1 and shadow dom v1. chrome 55 will work.
 
 ```js
 const {define, html} = require('excise');
@@ -21,6 +21,27 @@ define('x-hello-world', () => html`<h1>it works!</h1>`);
 
 document.body.innerHTML = '<x-hello-world></x-hello-world>';
 ```
+
+#### polyfills
+
+the only polyfills i've found that work are [custom-elements](https://github.com/webcomponents/custom-elements) and [shadydom](https://github.com/webcomponents/shadydom). they're not fully on npm yet but they can be installed with:
+
+```sh
+npm install --save webcomponents/shadydom webcomponents/custom-elements
+```
+
+and then include them with
+
+```js
+require('@webcomponents/shadydom');
+require('@webcomponents/custom-elements');
+```
+
+or as entry points to your bundle
+
+#### bundling
+
+i've found it difficult to get this working with webpack because it thinks `define` means AMD and even if you disable that plugin it breaks. just use browserify, and don't bother with babel because we need to natively extend `HTMLElement`.
 
 ### props
 
