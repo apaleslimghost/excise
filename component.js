@@ -1,7 +1,9 @@
 const {innerHTML} = require('diffhtml');
 const paramCase = require('param-case');
+const Element = require('./element');
 
-module.exports = class Component extends HTMLElement {
+
+module.exports = class Component extends Element {
 	static component(render, propTypes) {
 		return class extends this {
 			get render() {
@@ -14,25 +16,26 @@ module.exports = class Component extends HTMLElement {
 		}
 	}
 
-	static define(name, klass, ...rest) {
+	static define(name, Class, ...rest) {
 		if(typeof name === 'function') {
-			klass = name;
-			name = klass.is || paramCase(klass.name);
+			Class = name;
+			name = Class.is || paramCase(Class.name);
 		}
 
-		if(!klass.prototype || !klass.prototype.render) {
-			klass = this.component(klass, ...rest);
+		if(!Class.prototype || !Class.prototype.render) {
+			Class = this.component(Class, ...rest);
 		}
 
-		customElements.define(name, klass);
-		return klass;
+		this.customElements.define(name, Class);
+		return Class;
 	}
 
-	constructor() {
+
+	constructor({attributes}) {
 		super();
 
 		this.props = {};
-		for(const {name, value} of this.attributes) {
+		for(const {name, value} of (attributes || this.attributes)) {
 			const val = this._propValue(name, value);
 			this.props[name] = val;
 		}
