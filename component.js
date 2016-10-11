@@ -31,7 +31,7 @@ module.exports = class Component extends Element {
 	}
 
 
-	constructor({attributes}) {
+	constructor({attributes} = {}) {
 		super();
 
 		this.props = {};
