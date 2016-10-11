@@ -23,8 +23,6 @@ module.exports = class Element {
 		}
 
 		return node.nodeName === '#text' ? node.nodeValue
-		: `<${node.nodeName}${attrsToString(node.attributes)}>
-${node.childNodes.map(child => this.renderToString(child)).join('\n')}
-</${node.nodeName}>`
+		: `<${node.nodeName}${attrsToString(node.attributes)}>${node.childNodes.map(child => this.renderToString(child)).join('')}</${node.nodeName}>`
 	}
 }
