@@ -22,7 +22,10 @@ module.exports = class Element {
 			node.childNodes = [].concat(element.render(element.props, element));
 		}
 
-		return node.nodeName === '#text' ? node.nodeValue
-		: `<${node.nodeName}${attrsToString(node.attributes)}>${node.childNodes.map(child => this.renderToString(child)).join('')}</${node.nodeName}>`
+		if(node.nodeName === '#text') {
+			return node.nodeValue;
+		}
+
+		return `<${node.nodeName}${attrsToString(node.attributes)}>${node.childNodes.map(child => this.renderToString(child)).join('')}</${node.nodeName}>`
 	}
 }
