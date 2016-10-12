@@ -1,7 +1,7 @@
 const {innerHTML} = require('diffhtml');
-const paramCase = require('param-case');
 const Element = require('./element');
 
+const paramCase = s => s.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase();
 
 module.exports = class Component extends Element {
 	static component(render, propTypes) {
