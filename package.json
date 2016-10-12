@@ -11,10 +11,7 @@
   "author": "Matt Brennan <matt@153.io> (http://blog.153.io/)",
   "license": "ISC",
   "dependencies": {
-    "@webcomponents/custom-elements": "github:webcomponents/custom-elements",
-    "@webcomponents/shadydom": "github:webcomponents/shadydom",
     "diffhtml": "^0.9.2",
-    "global": "^4.3.0",
     "param-case": "^2.1.0"
   },
   "devDependencies": {
