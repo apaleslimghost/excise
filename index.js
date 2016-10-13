@@ -1,4 +1,5 @@
 const Component = require('./component');
+const Element = require('./element');
 const StatefulComponent = require('./stateful');
 const types = require('./types');
 const {html} = require('diffhtml');
@@ -9,3 +10,4 @@ module.exports.component = Component.component.bind(Component);
 module.exports.html = html;
 module.exports.StatefulComponent = StatefulComponent;
 module.exports.types = types;
+module.exports.renderToString = Element.renderToString.bind(Element);
