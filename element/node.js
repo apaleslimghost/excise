@@ -1,3 +1,5 @@
+const {html} = require('diffhtml');
+
 const registry = new Map();
 
 const attrsToString = attrs => attrs.map(
@@ -45,13 +47,14 @@ module.exports = class Element {
 				}
 			});
 
-			node.childNodes = [].concat(element.render(element.props, element));
+			node.childNodes = node.childNodes.concat(html`<span slot="__excise_rendered">
+				${element.render(element.props, element)}
+			</span>`);
 		}
 
 		if(node.nodeName === 'slot') {
 			const slotName = getAttr(node, 'name') || root;
 			node.childNodes = [].concat(slotMap.get(slotName) || []);
-			setAttr(node, 'name', `__excise_${slotName === root ? 'root' : slotName}`);
 		}
 
 		const children = node.childNodes.map(
@@ -63,7 +66,7 @@ module.exports = class Element {
 		}
 
 		return `<${node.nodeName}${attrsToString(node.attributes)}>
-	${children.join('\n\t')}
+${children.join('')}
 </${node.nodeName}>`
 	}
 }
