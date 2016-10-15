@@ -65,6 +65,20 @@ define('x-increment', ({count}) => html`<h1>${count + 1}</h1>`, {count: types.nu
 document.body.innerHTML = '<x-increment count="5"></x-increment>';
 ```
 
+### server rendering
+
+call `renderToString` with an `html` block:
+
+```js
+const {define, html, renderToString} = require('excise');
+
+define('x-foo', () => html`<h1>hello</h1>`);
+
+renderToString(html`<x-foo></x-foo>`); //⇒ <x-foo><span slot="__excise_rendered"><h1>hello</h1></span></x-foo>
+```
+
+the extra `span` allows you to reuse the server-rendered markup on the client. when your elements are defined, the `__excise_rendered` slot is ignored.
+
 ### events
 
 `on*` attributes are attached to elements as event handlers:
@@ -72,7 +86,7 @@ document.body.innerHTML = '<x-increment count="5"></x-increment>';
 ```js
 const {define, html} = require('excise');
 
-define('x-button', () => html`<button onclick=${() => alert('hello!')}>click me}</button>`);
+define('x-button', () => html`<button onclick=${() => alert('hello!')}>click me</button>`);
 
 document.body.innerHTML = '<x-button></x-button>';
 ```
