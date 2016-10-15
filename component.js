@@ -1,5 +1,6 @@
 const {innerHTML} = require('diffhtml');
 const Element = require('./element');
+const customElements = require('./custom-elements');
 
 const paramCase = s => s.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase();
 
@@ -26,7 +27,7 @@ module.exports = class Component extends Element {
 			Class = this.component(Class, ...rest);
 		}
 
-		this.customElements.define(name, Class);
+		customElements.define(name, Class);
 		return Class;
 	}
 
