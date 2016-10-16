@@ -35,9 +35,9 @@ module.exports = function renderToString(node, slotMap = new Map()) {
 			}
 		});
 
-		node.childNodes = node.childNodes.concat(html`<span slot="__excise_rendered">
+		node.childNodes = [].concat(html`<span slot="__excise_rendered">
 			${element.render(element.props, element)}
-		</span>`);
+		</span>`, node.childNodes);
 	}
 
 	if(node.nodeName === 'slot') {
