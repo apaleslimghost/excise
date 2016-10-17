@@ -34,14 +34,16 @@ module.exports = class Component extends Element {
 
 	constructor({attributes} = {}) {
 		super();
-
 		this.props = {};
+		this._readProps(attributes);
+		this.attachShadow({mode: 'open'});
+	}
+
+	_readProps(attributes) {
 		for(const {name, value} of (attributes || this.attributes)) {
 			const val = this._propValue(name, value);
 			this.props[name] = val;
 		}
-
-		this.attachShadow({mode: 'open'});
 	}
 
 	_propValue(name, value) {
@@ -57,6 +59,7 @@ module.exports = class Component extends Element {
 	}
 
 	connectedCallback() {
+		this._readProps();
 		this._updateTree(this.shadowRoot, this.render(this.props, this));
 	}
 
