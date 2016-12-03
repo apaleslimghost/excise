@@ -8,6 +8,8 @@ a toolkit for writing functional-style (react-like) web components, based on [di
 npm install excise
 ```
 
+Or give it a try using [this JSBin](https://jsbin.com/qecuhigisu/edit?html,js,output) in Chrome.
+
 ## usage
 
 ### basic
