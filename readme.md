@@ -142,4 +142,4 @@ document.body.innerHTML = '<x-class-component greeting="hello!"></x-class-compon
 
 ## licence
 
-ISC. &copy; matt brennan
+ISC. &copy; kara brightwell
